@@ -9,6 +9,9 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
+              run: |
+              npm ci
+              npm run build
 
             - name: Run Super-Linter
               uses: github/super-linter@v4
