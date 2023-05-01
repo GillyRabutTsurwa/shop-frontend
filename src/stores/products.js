@@ -8,6 +8,11 @@ export const useProductsStore = defineStore("products", {
             productsInCart: [],
         };
     },
+    getters: {
+        getOccurence: (state) => {
+            return (value) => state.productsInCart.filter((currentObj) => currentObj === value).length;
+        },
+    },
     actions: {
         async fetchProducts() {
             try {

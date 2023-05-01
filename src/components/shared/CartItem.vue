@@ -1,9 +1,7 @@
 <script setup>
-import { onMounted } from "vue";
 import { useProductsStore } from "../../stores/products";
 
 const store = useProductsStore();
-
 const props = defineProps({
     cartItemProp: {
         type: Object,
@@ -11,36 +9,20 @@ const props = defineProps({
     }
 });
 
-// TESTING:
-function getOccurrence(array, value) {
-    console.log(value.sys.id);
-    return array.filter((currentObj) => currentObj === value).length;
-}
-
 function incrementItem() {
-    // productsInCart.update((currentValue) => {
-    //     return [...currentValue, props.cartItemProp]; // wow it worked.très bien
-    // });
-
-    //translation of above
     store.$patch((state) => {
-        state.productsInCart = [...state.productsInCart, props.cartItemProp]
+        state.productsInCart = [...state.productsInCart, props.cartItemProp];
     })
 }
 
 function decrementItem() {
     console.log("decrementItem function executed");
-    // thanks to this stackoverflow link:
-    // https://stackoverflow.com/questions/53534721/find-and-remove-first-matching-element-in-an-array-of-javascript-objects/53534899
-    // productsInCart.update((currentValue) => {
-    //     const index = currentValue.indexOf(props.cartItemProp);
-    //     if (index > -1) {
-    //         currentValue.splice(index, 1);
-    //     }
-    //     return currentValue;
-    // });
+    /**
+     * NOTE:
+     * thanks to this stackoverflow link:
+     * https://stackoverflow.com/questions/53534721/find-and-remove-first-matching-element-in-an-array-of-javascript-objects/53534899
+     */
 
-    // translation of above
     store.$patch((state) => {
         const index = state.productsInCart.indexOf(props.cartItemProp);
         if (index > -1) {
@@ -57,24 +39,19 @@ function removeItem() {
     // });
     console.log("functionality coming soo")
 }
-
-onMounted(() => {
-    props.cartItemProp.sys.id = Math.random(); // replacing ids from the json file with my own ids. same items not sure if i want it this way or the way i have it in Product.svelte where every single item in the cart has unnique id
-    console.log(props.cartItemProp);
-})
 </script>
 
 <template>
     <div class="cart-item">
-        <img :src="cartItemProp.fields.image.src" alt="product 1" />
+        <img :src="props.cartItemProp.fields.image.src" :alt="props.cartItemProp.sys.id" />
         <div>
-            <h4>{{ cartItemProp.fields.title }}</h4>
-            <h5>{{ cartItemProp.fields.price }}</h5>
+            <h4>{{ props.cartItemProp.fields.title }}</h4>
+            <h5>{{ props.cartItemProp.fields.price }}</h5>
             <span @click="removeItem" class="remove-item">Remove</span>
         </div>
         <div>
             <i @click="incrementItem" class="fas fa-chevron-up" />
-            <p class="item-amount">{{ getOccurrence(store.productsInCart, cartItemProp) }}</p>
+            <p class="item-amount">{{ store.getOccurence(props.cartItemProp) }}</p>
             <i @click="decrementItem" class="fas fa-chevron-down" />
         </div>
     </div>

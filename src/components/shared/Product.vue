@@ -10,19 +10,14 @@ const props = defineProps({
 })
 
 const addItemToCart = () => {
-    // productsInCart.update((currentProducts) => {
-    //   productObj.sys.id = Math.random(); // replacing ids from the json file with my own ids
-    //   // console.log(productObj); // useful log mais je vais le decommenter pour le momment
-    //   return [productObj, ...currentProducts];
-    // });
-    // // console.log($productsInCart); // le même pour celui-ci
-
-    // NOTE: i should get a warning about mutating props, but it should work nevertheless
+    /** NOTE:
+     * i should get a warning about mutating props, but it should work nevertheless
+     * i actually get no warning
+     */
     store.$patch((state) => {
-        props.productObj.sys.id = Math.random();
         console.log(props.productObj);
         state.productsInCart = [props.productObj, ...state.productsInCart];
-    })
+    });
 };
 </script>
 

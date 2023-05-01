@@ -14,6 +14,21 @@ const productsInCartUI = computed(() => {
     return [...new Set(productsStore.productsInCart)];
 });
 
+/** NOTETESTING
+ * taking our computed property above
+ * and extracting the id,
+ * whilst generating it's respectable quantity (look at products.js store file)
+ * this will give us a certain item via its id and the quantity of the selected item
+ */
+const test = computed(() => {
+    return productsInCartUI.value.map((currentProduct) => {
+        return {
+            id: currentProduct.sys.id,
+            quantity: productsStore.getOccurence(currentProduct)
+        }
+    })
+})
+
 const totalPricesArr = computed(() => {
     return productsStore.productsInCart.map((currentProduct) => currentProduct.fields.price);
 });
@@ -22,13 +37,6 @@ const sum = computed(() => {
     return totalPricesArr.value.reduce((accumulator, currentValue) => accumulator + currentValue, 0).toFixed(2);
 });
 
-
-// NOTE: je sais pas encore ce code-ci
-// cartStatus.subscribe((data) => {
-//     console.log(get(cartStatus));
-//     // console.log(get(cartStatus) === data); true. interesting
-//     isCartOpen = data; //NOTE: je peux aussi faire isCartOpen = get(cartStatus);
-// });
 cartStore.$subscribe((_, state) => {
     // NOTE: not using the mutation parametre so using _, as the order and placements of the function's arguments matters
     console.log(state.cartStatus);
@@ -42,7 +50,7 @@ const clearCart = () => {
     console.log("Touts les articles dans la carte supprimés")
 };
 
-watch(() => productsStore.productsInCart, (newValue, oldValue) => {
+watch(() => test.value, (newValue, oldValue) => {
     console.log(oldValue);
     console.log(newValue);
 })
@@ -62,6 +70,7 @@ watch(() => productsStore.productsInCart, (newValue, oldValue) => {
             <div class="cart-footer">
                 <h3>Your total : $ <span class="cart-total">{{ sum }}</span></h3>
                 <button @click="clearCart" class="clear-cart banner-btn">Clear cart</button>
+                <button @click="clearCart" class="clear-cart banner-btn">Checkout</button>
             </div>
         </div>
     </div>
@@ -131,6 +140,9 @@ watch(() => productsStore.productsInCart, (newValue, oldValue) => {
     margin-top: 2rem;
     letter-spacing: var(--mainSpacing);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cart-footer h3 {
