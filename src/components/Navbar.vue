@@ -17,7 +17,7 @@ const itemsInCart = computed(() => {
             <span class="nav-icon">
                 <i class="fas fa-bars" />
             </span>
-            <img src="img/logo.svg" alt="Store Logo" />
+            <!-- <img src="img/logo.svg" alt="Store Logo" /> -->
             <button @click=cartStore.toggleCartStatus class="cart-btn">
                 <span class="nav-icon"><i class="fas fa-cart-plus" /></span>
                 <div class="cart-items">{{ itemsInCart }}</div>
