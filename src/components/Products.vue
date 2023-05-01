@@ -1,7 +1,5 @@
 <script setup>
-import { onBeforeMount } from 'vue';
 import { useProductsStore } from '../stores/products';
-
 import Product from './shared/Product.vue';
 
 const store = useProductsStore();

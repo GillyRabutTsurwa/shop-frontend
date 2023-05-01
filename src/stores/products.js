@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-const URL = "http://localhost:3000/items";
+const URL = "http://localhost:4242/shopping-cart";
 
 export const useProductsStore = defineStore("products", {
     state: () => {

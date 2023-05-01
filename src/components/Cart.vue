@@ -20,17 +20,17 @@ const productsInCartUI = computed(() => {
  * whilst generating it's respectable quantity (look at products.js store file)
  * this will give us a certain item via its id and the quantity of the selected item
  */
-const test = computed(() => {
+const cartItems = computed(() => {
     return productsInCartUI.value.map((currentProduct) => {
         return {
-            id: currentProduct.sys.id,
+            id: currentProduct._id,
             quantity: productsStore.getOccurence(currentProduct)
         }
     })
 })
 
 const totalPricesArr = computed(() => {
-    return productsStore.productsInCart.map((currentProduct) => currentProduct.fields.price);
+    return productsStore.productsInCart.map((currentProduct) => currentProduct.price);
 });
 
 const sum = computed(() => {
@@ -50,7 +50,30 @@ const clearCart = () => {
     console.log("Touts les articles dans la carte supprimés")
 };
 
-watch(() => test.value, (newValue, oldValue) => {
+const redirectToStripe = () => {
+    fetch("http://localhost:4242/checkout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            items: cartItems.value,
+        }),
+    })
+        .then((response) => {
+            if (response.ok) return response.json();
+            return response.json().then((json) => Promise.reject(json));
+        })
+        .then((data) => {
+            console.log(data);
+            const { url } = data;
+            console.log(url);
+            window.location = url;
+        })
+        .catch((err) => console.error(err.error));
+}
+
+watch(() => cartItems.value, (newValue, oldValue) => {
     console.log(oldValue);
     console.log(newValue);
 })
@@ -70,7 +93,7 @@ watch(() => test.value, (newValue, oldValue) => {
             <div class="cart-footer">
                 <h3>Your total : $ <span class="cart-total">{{ sum }}</span></h3>
                 <button @click="clearCart" class="clear-cart banner-btn">Clear cart</button>
-                <button @click="clearCart" class="clear-cart banner-btn">Checkout</button>
+                <button @click="redirectToStripe" class="clear-cart banner-btn">Checkout</button>
             </div>
         </div>
     </div>

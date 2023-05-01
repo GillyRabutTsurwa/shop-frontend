@@ -10,6 +10,8 @@
         "test:dom": "vitest --environment jsdom"
     },
     "dependencies": {
+        "@sanity/client": "^5.4.2",
+        "@sanity/image-url": "^1.0.2",
         "pinia": "^2.0.32",
         "vue": "^3.2.47",
         "vue-router": "^4.1.6"

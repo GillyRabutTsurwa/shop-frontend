@@ -1,5 +1,8 @@
 <script setup>
 import { useProductsStore } from "../../stores/products";
+import { client } from "../../../sanity";
+import imageUrlBuilder from '@sanity/image-url'
+
 
 const store = useProductsStore();
 const props = defineProps({
@@ -8,6 +11,11 @@ const props = defineProps({
         required: true
     }
 });
+const builder = imageUrlBuilder(client)
+const urlFor = (source) => {
+    return builder.image(source)
+}
+
 
 function incrementItem() {
     store.$patch((state) => {
@@ -43,10 +51,10 @@ function removeItem() {
 
 <template>
     <div class="cart-item">
-        <img :src="props.cartItemProp.fields.image.src" :alt="props.cartItemProp.sys.id" />
+        <img :src="urlFor(props.cartItemProp.mainImage.asset._ref)" :alt="props.cartItemProp._id" />
         <div>
-            <h4>{{ props.cartItemProp.fields.title }}</h4>
-            <h5>{{ props.cartItemProp.fields.price }}</h5>
+            <h4>{{ props.cartItemProp.name }}</h4>
+            <h5>{{ props.cartItemProp.price }}</h5>
             <span @click="removeItem" class="remove-item">Remove</span>
         </div>
         <div>

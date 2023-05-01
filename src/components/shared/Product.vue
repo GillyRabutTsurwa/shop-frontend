@@ -1,6 +1,11 @@
 <script setup>
+import { client } from "../../../sanity";
 import { useProductsStore } from "../../stores/products";
+import imageUrlBuilder from '@sanity/image-url'
+
+const builder = imageUrlBuilder(client)
 const store = useProductsStore();
+
 
 const props = defineProps({
     productObj: {
@@ -8,6 +13,12 @@ const props = defineProps({
         required: true
     }
 })
+
+console.log(props.productObj);
+
+const urlFor = (source) => {
+    return builder.image(source)
+}
 
 const addItemToCart = () => {
     /** NOTE:
@@ -24,14 +35,14 @@ const addItemToCart = () => {
 <template>
     <article class="product">
         <div class="img-container">
-            <img :src="productObj.fields.image.src" class="product-image" alt="product 1" />
+            <img :src="urlFor(props.productObj.mainImage.asset._ref)" class="product-image" alt="product 1" />
             <button @click="addItemToCart" class="bag-btn" data-id="1">
                 <i class="fas fa-shopping-cart" aria-hidden="true" />
                 Add To Bag
             </button>
         </div>
-        <h3>{{ productObj.fields.title }}</h3>
-        <h4>${{ productObj.fields.price }}</h4>
+        <h3>{{ props.productObj.name }}</h3>
+        <h4>${{ props.productObj.price }}</h4>
     </article>
 </template>
 
