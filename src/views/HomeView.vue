@@ -1,9 +1,13 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import Navbar from "@/components/Navbar.vue";
+import Cart from "@/components/Cart.vue";
+import Header from "@/components/Header.vue";
+import Products from "@/components/Products.vue";
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <Navbar />
+  <Cart />
+  <Header />
+  <Products />
 </template>
