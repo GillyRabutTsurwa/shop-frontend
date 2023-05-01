@@ -27,5 +27,4 @@ coverage
 *.sw?
 
 # Added By Me
-package-lock.json
 vitest.config.js
