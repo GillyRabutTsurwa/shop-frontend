@@ -28,3 +28,4 @@ coverage
 
 # Added By Me
 vitest.config.js
+.env
