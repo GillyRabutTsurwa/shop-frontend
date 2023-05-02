@@ -1,20 +1,20 @@
 # This workflow will do a will make issues from todos comments in my project
 
-name: Making Todos From Issues
+name: Making Issues From Todos
 
 on:
     push:
         branches: ["master"]
 
 jobs:
-  todos:
-    runs-on: ubuntu-latest
+    check-todos:
+        runs-on: ubuntu-latest
 
-      steps:
-          - name: Verifying Repository
-            uses: actions/checkout@v3
-          - name: todo-actions
-            uses: dtinth/todo-actions@master
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              TODO_ACTIONS_MONGO_URL: ${{ secrets.TODO_ACTIONS_MONGO_URL }}
+        steps:
+            - name: Verifying Repository
+              uses: actions/checkout@v3
+            - name: Todo Actions
+              uses: dtinth/todo-actions@master
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  TODO_ACTIONS_MONGO_URL: ${{ secrets.TODO_ACTIONS_MONGO_URL }}
