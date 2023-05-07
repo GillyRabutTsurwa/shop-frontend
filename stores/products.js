@@ -42,3 +42,5 @@ export const useProductsStore = defineStore("products", {
         },
     },
 });
+
+// TODO let us see if this works in case the other one fails

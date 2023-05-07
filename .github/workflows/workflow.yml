@@ -7,7 +7,7 @@ on:
         branches: ["master"]
 
 jobs:
-    todos:
+    check-for-todos:
         runs-on: ubuntu-latest
 
         steps:
