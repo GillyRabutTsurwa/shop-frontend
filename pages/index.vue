@@ -3,8 +3,7 @@
 </script>
 
 <template>
-    <Navbar />
-    <Cart />
     <Header />
+    <Cart />
     <Products />
 </template>

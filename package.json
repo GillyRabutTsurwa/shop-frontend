@@ -16,6 +16,7 @@
         "vue": "latest"
     },
     "dependencies": {
+        "@nuxtjs/sanity": "^1.7.1",
         "@pinia/nuxt": "^0.4.9",
         "pinia": "^2.0.35"
     }
