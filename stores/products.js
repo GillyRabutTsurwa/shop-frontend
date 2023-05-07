@@ -1,18 +1,11 @@
 import { defineStore } from "pinia";
 
-const isDevelopment = import.meta.env.DEV;
 const isProduction = import.meta.env.PROD;
 
 const devServerURL = import.meta.env.VITE_DEV_SERVER_URL;
 const prodServerURL = import.meta.env.VITE_PROD_SERVER_URL;
 
-console.log(`Development Mode: ${isDevelopment}`);
-console.log(`Production Mode: ${isProduction}`);
-
-console.log(import.meta.env.VITE_TEST_KEY); // NOTE: will work
-console.log(import.meta.env.KEY_TEST); // NOTE: will NOT work; not prepended with VITE_
-
-const serverURL = isDevelopment ? devServerURL : prodServerURL;
+const serverURL = isProduction ? prodServerURL : devServerURL;
 
 const URL = `${serverURL}/products`;
 console.log(URL);
