@@ -15,6 +15,7 @@ console.log(import.meta.env.KEY_TEST); // NOTE: will NOT work; not prepended wit
 const serverURL = isDevelopment ? devServerURL : prodServerURL;
 
 const URL = `${serverURL}/products`;
+console.log(URL);
 
 export const useProductsStore = defineStore("products", {
     state: () => {
@@ -41,3 +42,5 @@ export const useProductsStore = defineStore("products", {
         },
     },
 });
+
+// TODO let us see if this works in case the other one fails
