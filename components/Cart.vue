@@ -57,9 +57,21 @@ const clearCart = () => {
 // trying to create a new issue, WITH labels
 // labels: enhancement, help wanted, testing
 
+// NOTE: this is code straight from stores/products.js but copying it just to get it to work
+const isProduction = import.meta.env.PROD;
+
+const devServerURL = import.meta.env.VITE_DEV_SERVER_URL;
+const prodServerURL = import.meta.env.VITE_PROD_SERVER_URL;
+
+console.log(devServerURL);
+console.log(prodServerURL);
+
+const serverURL = isProduction ? prodServerURL : devServerURL;
+console.log("-----");
+console.log(serverURL);
 
 const redirectToStripe = () => {
-  fetch("http://localhost:4242/checkout", {
+  fetch(`${serverURL}/checkout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
