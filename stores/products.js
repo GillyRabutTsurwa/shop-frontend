@@ -42,9 +42,3 @@ export const useProductsStore = defineStore("products", {
         },
     },
 });
-
-// TODO: Testing Todo Action
-//
-// this is for testing the todo action created in this commit
-// if it works, i will see an issue with this as the description
-// on y va
