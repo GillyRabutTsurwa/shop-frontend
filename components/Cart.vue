@@ -90,7 +90,10 @@ const redirectToStripe = () => {
       console.log(url);
       window.location = url;
     })
-    .catch((err) => console.error(err.error));
+    .catch((err) => console.error(err.error))
+    .finally(() => {
+      console.log("Post Request Complete");
+    })
 }
 
 watch(() => cartItems.value, (newValue, oldValue) => {
