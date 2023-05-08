@@ -13,8 +13,7 @@ jobs:
         steps:
             - name: Verifying Repository
               uses: actions/checkout@v3
-            - name: Todo Actions
-              uses: dtinth/todo-actions@master
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  TODO_ACTIONS_MONGO_URL: ${{ secrets.TODO_ACTIONS_MONGO_URL }}
+            - name: Todo to Issue
+              uses: alstr/todo-to-issue-action@v4
+              with:
+                  AUTO_ASSIGN: true
