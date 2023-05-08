@@ -114,7 +114,7 @@ watch(() => cartItems.value, (newValue, oldValue) => {
         <h5 v-if="productsInCartUI.length === 0" style="text-align:center;">Your Cart is Empty</h5>
       </div>
       <div class="cart-footer">
-        <h3>Your total : $ <span class="cart-total">{{ sum }}</span></h3>
+        <h3>Your total : $ <span class="cart-total">{{ (sum / 100).toFixed(2) }}</span></h3>
         <button @click="clearCart" class="clear-cart banner-btn">Clear cart</button>
         <button @click="redirectToStripe" class="clear-cart banner-btn">Checkout</button>
       </div>

@@ -35,7 +35,7 @@ const addItemToCart = () => {
       </button>
     </div>
     <h3>{{ props.productObj.name }}</h3>
-    <h4>${{ props.productObj.price }}</h4>
+    <h4>${{ (props.productObj.price / 100).toFixed(2) }}</h4>
   </article>
 </template>
 
