@@ -9,10 +9,12 @@ const config: RuntimeConfig = useRuntimeConfig();
 const builder = imageUrlBuilder(client);
 const urlFor = (source) => builder.image(source);
 
-const isProduction = process.env.NODE_ENV === "production";
+//NOTE: have access to this via vite (which Nuxt uses)
+const isProduction = import.meta.env.MODE === "production";
 
-const clientProdUrl = config.public.clientProdUrl;
-const clientDevUrl = config.public.clientProdUrl;
+const clientProdUrl = config.public.client_url.production;
+const clientDevUrl = config.public.client_url.development;
+
 const CLIENT_URL = isProduction ? clientProdUrl : clientDevUrl;
 
 const stripe = new Stripe(config.stripe.dev_key, {
@@ -58,10 +60,8 @@ export default defineEventHandler(async (event) => {
                 payment_method_types: ["card"],
                 mode: "payment",
                 line_items: lineItems,
-                // success_url: `${CLIENT_URL}/success`,
-                // cancel_url: `${CLIENT_URL}`,
-                success_url: `http://localhost:3000/success`,
-                cancel_url: `http://localhost:3000/`,
+                success_url: `${CLIENT_URL}/success`,
+                cancel_url: `${CLIENT_URL}`,
                 locale: "en",
                 shipping_address_collection: {
                     allowed_countries: ["US"],

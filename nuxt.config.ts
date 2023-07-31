@@ -12,8 +12,12 @@ export default defineNuxtConfig({
         public: {
             sanity: {
                 projectId: process.env.SANITY_PROJECT_ID
+            },
+            client_url: {
+               development: process.env.CLIENT_DEV_URL,
+               production: process.env.CLIENT_PROD_URL 
             }
-        }
+        },
     },
     app: {
         head: {
