@@ -1,16 +1,13 @@
 <script setup>
-import { useProductsStore } from '~/stores/products';
-const store = useProductsStore();
-store.fetchProducts();
-console.log(store);
-console.log(store.products);
+const { data } = await useFetch("/api/products");
+console.log(data.value.products);
 </script>
 
 <template>
   <section class="products">
     <h2 class="section-title">Our Products</h2>
     <div class="products-centre">
-      <Product v-for="(currentProduct, index) in store.products" :key="index" :productObj="currentProduct" />
+      <Product v-for="(currentProduct, index) in data.products" :key="index" :product="currentProduct" />
     </div>
   </section>
 </template>

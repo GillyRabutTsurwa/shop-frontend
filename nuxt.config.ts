@@ -2,7 +2,18 @@
 export default defineNuxtConfig({
     modules: ["@pinia/nuxt", "@nuxtjs/sanity"],
     sanity: {
-        projectId: "qqpcfqbo",
+        projectId: process.env.SANITY_PROJECT_ID,
+    },
+    runtimeConfig: {
+        stripe: {
+            dev_key: process.env.STRIPE_PRIVATE_TEST_KEY,
+            prod_key: process.env.STRIPE_PRIVATE_PROD_KEY,
+        },
+        public: {
+            sanity: {
+                projectId: process.env.SANITY_PROJECT_ID
+            }
+        }
     },
     app: {
         head: {

@@ -1,17 +1,18 @@
 <script setup>
 import { useProductsStore } from "~/stores/products";
+const { data } = await useFetch("/api/products");
 const store = useProductsStore();
 
 
 const props = defineProps({
-  productObj: {
+  product: {
     type: Object,
     required: true
   }
-})
+});
 
-console.log(props.productObj);
-
+store.products = data.value.products;
+console.log(props.product);
 
 const addItemToCart = () => {
   /** NOTE:
@@ -19,8 +20,8 @@ const addItemToCart = () => {
    * i actually get no warning
    */
   store.$patch((state) => {
-    console.log(props.productObj);
-    state.productsInCart = [props.productObj, ...state.productsInCart];
+    console.log(props.product);
+    state.productsInCart = [props.product, ...state.productsInCart];
   });
 };
 </script>
@@ -28,14 +29,14 @@ const addItemToCart = () => {
 <template>
   <article class="product">
     <div class="img-container">
-      <SanityImage :asset-id="props.productObj.mainImage.asset._ref" class="product-image" auto="format" />
+      <SanityImage :asset-id="props.product.mainImage.asset._ref" class="product-image" auto="format" />
       <button @click="addItemToCart" class="bag-btn" data-id="1">
         <i class="fas fa-shopping-cart" aria-hidden="true" />
         Add To Bag
       </button>
     </div>
-    <h3>{{ props.productObj.name }}</h3>
-    <h4>${{ (props.productObj.price / 100).toFixed(2) }}</h4>
+    <h3>{{ props.product.name }}</h3>
+    <h4>${{ (props.product.price / 100).toFixed(2) }}</h4>
   </article>
 </template>
 

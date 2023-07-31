@@ -70,30 +70,40 @@ const serverURL = isProduction ? prodServerURL : devServerURL;
 console.log("-----");
 console.log(serverURL);
 
-const redirectToStripe = () => {
-  fetch(`${serverURL}/checkout`, {
+const redirectToStripe = async () => {
+  // fetch(`${serverURL}/checkout`, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     items: cartItems.value,
+  //   }),
+  // })
+  //   .then((response) => {
+  //     if (response.ok) return response.json();
+  //     return response.json().then((json) => Promise.reject(json));
+  //   })
+  //   .then((data) => {
+  //     console.log(data);
+  //     const { url } = data;
+  //     console.log(url);
+  //     window.location = url;
+  //   })
+  //   .catch((err) => console.error(err.error))
+  //   .finally(() => {
+  //     console.log("Post Request Complete");
+  //   })
+  const { data } = await useFetch("/api/checkout", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      items: cartItems.value,
-    }),
-  })
-    .then((response) => {
-      if (response.ok) return response.json();
-      return response.json().then((json) => Promise.reject(json));
-    })
-    .then((data) => {
-      console.log(data);
-      const { url } = data;
-      console.log(url);
-      window.location = url;
-    })
-    .catch((err) => console.error(err.error))
-    .finally(() => {
-      console.log("Post Request Complete");
-    })
+    body: {
+      items: cartItems.value
+    }
+  });
+  // console.log(data.value.url);
+  await navigateTo(data.value.url, {
+    external: true //on en a besoin pour pouvoir naviguer à un url externe
+  }); // equivalent effect as window.location = url
 }
 
 watch(() => cartItems.value, (newValue, oldValue) => {
