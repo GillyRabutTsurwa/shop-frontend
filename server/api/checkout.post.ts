@@ -9,13 +9,11 @@ const config: RuntimeConfig = useRuntimeConfig();
 const builder = imageUrlBuilder(client);
 const urlFor = (source) => builder.image(source);
 
-//NOTE: have access to this via vite (which Nuxt uses)
-const isProduction = import.meta.env.MODE === "production";
-
 const clientProdUrl = config.public.client_url.production;
 const clientDevUrl = config.public.client_url.development;
 
-const CLIENT_URL = isProduction ? clientProdUrl : clientDevUrl;
+//NOTE: have access to import.meta.env.__ via vite (which Nuxt uses)
+const CLIENT_URL = import.meta.env.PROD ? clientProdUrl : clientDevUrl;
 
 const stripe = new Stripe(config.stripe.dev_key, {
     apiVersion: "2022-11-15"

@@ -58,42 +58,9 @@ const clearCart = () => {
 // labels: enhancement, help wanted, testing
 
 // NOTE: this is code straight from stores/products.js but copying it just to get it to work
-const isProduction = import.meta.env.PROD;
-
-const devServerURL = import.meta.env.VITE_DEV_SERVER_URL;
-const prodServerURL = import.meta.env.VITE_PROD_SERVER_URL;
-
-console.log(devServerURL);
-console.log(prodServerURL);
-
-const serverURL = isProduction ? prodServerURL : devServerURL;
-console.log("-----");
-console.log(serverURL);
+console.log(import.meta.env.DEV);
 
 const redirectToStripe = async () => {
-  // fetch(`${serverURL}/checkout`, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     items: cartItems.value,
-  //   }),
-  // })
-  //   .then((response) => {
-  //     if (response.ok) return response.json();
-  //     return response.json().then((json) => Promise.reject(json));
-  //   })
-  //   .then((data) => {
-  //     console.log(data);
-  //     const { url } = data;
-  //     console.log(url);
-  //     window.location = url;
-  //   })
-  //   .catch((err) => console.error(err.error))
-  //   .finally(() => {
-  //     console.log("Post Request Complete");
-  //   })
   const { data } = await useFetch("/api/checkout", {
     method: "POST",
     body: {
